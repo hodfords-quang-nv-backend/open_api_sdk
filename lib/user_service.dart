@@ -32,7 +32,10 @@ class MicroserviceDocumentController {
     return response.data;
   }
 
-  Future<dynamic> grpcTest(dynamic body, {Map<String, String>? headers}) async {
+  Future<dynamic> grpcTest(
+    GrpcTestDto body, {
+    Map<String, String>? headers,
+  }) async {
     final response = await dio.request(
       '/$prefix/microservice-documents/test',
       options: Options(method: 'POST', headers: headers),
@@ -57,11 +60,11 @@ class UserController {
       options: Options(method: 'GET', headers: headers),
     );
 
-    return CurrentUserResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<void> deleteCurrentUser(
-    dynamic body, {
+    DeleteCurrentUserDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -82,7 +85,7 @@ class UserController {
       options: Options(method: 'GET', headers: headers),
     );
 
-    return UserPublicProfileResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<TaggedUsersPaginationResponse> paginateTaggedUsers(
@@ -96,11 +99,11 @@ class UserController {
       options: Options(method: 'GET', headers: headers),
     );
 
-    return TaggedUsersPaginationResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<SpotConnectionResponse> addSpotList(
-    dynamic body, {
+    AddSpotListDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -109,11 +112,11 @@ class UserController {
       data: body is Map<String, dynamic> ? body : body.toJson(),
     );
 
-    return SpotConnectionResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<void> removeSpotList(
-    dynamic body, {
+    RemoveSpotListDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -126,7 +129,7 @@ class UserController {
   }
 
   Future<void> updateCurrentUserProfile(
-    dynamic body, {
+    UpdateUserProfileDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -139,7 +142,7 @@ class UserController {
   }
 
   Future<void> changePassword(
-    dynamic body, {
+    ChangePasswordDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -159,7 +162,7 @@ class ResetPasswordController {
   ResetPasswordController({required this.dio, this.prefix = ''});
 
   Future<void> sendOtpResetPassword(
-    dynamic body, {
+    SendOtpResetPasswordDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -172,7 +175,7 @@ class ResetPasswordController {
   }
 
   Future<void> resetPassword(
-    dynamic body, {
+    ResetPasswordDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -185,7 +188,7 @@ class ResetPasswordController {
   }
 
   Future<void> verifyOtpResetPassword(
-    dynamic body, {
+    VerifyOtpResetPasswordDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -205,7 +208,7 @@ class AuthController {
   AuthController({required this.dio, this.prefix = ''});
 
   Future<SignUpResponse> signUp(
-    dynamic body, {
+    SignUpDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -214,11 +217,11 @@ class AuthController {
       data: body is Map<String, dynamic> ? body : body.toJson(),
     );
 
-    return SignUpResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<SignInResponse> signIn(
-    dynamic body, {
+    SignInDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -227,11 +230,11 @@ class AuthController {
       data: body is Map<String, dynamic> ? body : body.toJson(),
     );
 
-    return SignInResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<dynamic> refreshToken(
-    dynamic body, {
+    RefreshTokenDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -253,7 +256,7 @@ class AuthController {
   }
 
   Future<SignInResponse> googleLogin(
-    dynamic body, {
+    SocialLoginDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -262,7 +265,7 @@ class AuthController {
       data: body is Map<String, dynamic> ? body : body.toJson(),
     );
 
-    return SignInResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<SocialAuthUrlResponse> getAuthUrl(
@@ -274,7 +277,7 @@ class AuthController {
       options: Options(method: 'GET', headers: headers),
     );
 
-    return SocialAuthUrlResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<AccessTokenResponse> callbackGet({
@@ -285,7 +288,7 @@ class AuthController {
       options: Options(method: 'GET', headers: headers),
     );
 
-    return AccessTokenResponse.fromJson(response.data);
+    return dynamic.fromJson(response.data);
   }
 
   Future<dynamic> callbackPost({Map<String, String>? headers}) async {
@@ -309,7 +312,7 @@ class AuthController {
   }
 
   Future<void> sendOtpSignUp(
-    dynamic body, {
+    SendOtpDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -322,7 +325,7 @@ class AuthController {
   }
 
   Future<void> verifyOtpSignUp(
-    dynamic body, {
+    VerifyOtpDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
@@ -335,7 +338,7 @@ class AuthController {
   }
 
   Future<dynamic> checkUsername(
-    dynamic body, {
+    CheckUserNameDto body, {
     Map<String, String>? headers,
   }) async {
     final response = await dio.request(
