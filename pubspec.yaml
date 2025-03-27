@@ -1,0 +1,25 @@
+name: OpenApiSdk
+description: Dart SDK generated from OpenAPI.
+version: 0.0.1
+homepage: https://github.com/yourname/openapi_sdk
+publish_to: https://nnguyenquangg.com
+
+environment:
+  sdk: ">=2.17.0 <4.0.0"
+
+dependencies:
+  dio: ^5.0.0
+  http: ^0.13.0
+
+dev_dependencies:
+  test: ^1.16.0
+
+# Optional: if your package includes a Flutter plugin
+
+# Add an example directory to show usage
+example:
+  main.dart: "example/main.dart"
+
+# Add a changelog and license to meet publication requirements
+changelog: CHANGELOG.md
+license: LICENSE
