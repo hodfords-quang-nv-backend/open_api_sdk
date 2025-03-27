@@ -1,6 +1,6 @@
 name: OpenApiSdk
 description: Dart SDK generated from OpenAPI.
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/yourname/openapi_sdk
 publish_to: https://nnguyenquangg.com
 
