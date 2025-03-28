@@ -1,6 +1,6 @@
 name: open_api_sdk
 description: Dart SDK generated from OpenAPI.
-version: 0.0.16
+version: 0.0.17
 
 environment:
   sdk: ">=2.17.0 <4.0.0"
