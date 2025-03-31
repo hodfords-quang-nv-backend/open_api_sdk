@@ -102,6 +102,19 @@ class UserController {
     return TaggedUsersPaginationResponse.fromJson(response.data);
   }
 
+  Future<SpotlistPaginationResponse> paginateSpotlist(
+    String page,
+    String perPage, {
+    Map<String, String>? headers,
+  }) async {
+    final response = await dio.request(
+      '/$prefix/users/spotlist',
+      options: Options(method: 'GET', headers: headers),
+    );
+
+    return SpotlistPaginationResponse.fromJson(response.data);
+  }
+
   Future<SpotConnectionResponse> addSpotList(
     AddSpotListDto body, {
     Map<String, String>? headers,
@@ -543,6 +556,7 @@ class CurrentUserResponse {
   FileResponse? avatar;
   String? gender;
   num? totalSmypes;
+  num? totalSpotlist;
   bool? isSocialAccount;
 
   CurrentUserResponse({
@@ -558,29 +572,30 @@ class CurrentUserResponse {
     this.avatar,
     this.gender,
     this.totalSmypes,
+    this.totalSpotlist,
     this.isSocialAccount,
   });
 
-  factory CurrentUserResponse.fromJson(Map<String, dynamic> json) =>
-      CurrentUserResponse(
-        id: json['id'] != null ? json['id'] : null,
-        createdAt: json['createdAt'] != null ? json['createdAt'] : null,
-        updatedAt: json['updatedAt'] != null ? json['updatedAt'] : null,
-        email: json['email'] != null ? json['email'] : null,
-        firstName: json['firstName'] != null ? json['firstName'] : null,
-        lastName: json['lastName'] != null ? json['lastName'] : null,
-        userName: json['userName'] != null ? json['userName'] : null,
-        birthday: json['birthday'] != null ? json['birthday'] : null,
-        avatarId: json['avatarId'] != null ? json['avatarId'] : null,
-        avatar:
-            json['avatar'] != null
-                ? FileResponse.fromJson(json['avatar'])
-                : null,
-        gender: json['gender'] != null ? json['gender'] : null,
-        totalSmypes: json['totalSmypes'] != null ? json['totalSmypes'] : null,
-        isSocialAccount:
-            json['isSocialAccount'] != null ? json['isSocialAccount'] : null,
-      );
+  factory CurrentUserResponse.fromJson(
+    Map<String, dynamic> json,
+  ) => CurrentUserResponse(
+    id: json['id'] != null ? json['id'] : null,
+    createdAt: json['createdAt'] != null ? json['createdAt'] : null,
+    updatedAt: json['updatedAt'] != null ? json['updatedAt'] : null,
+    email: json['email'] != null ? json['email'] : null,
+    firstName: json['firstName'] != null ? json['firstName'] : null,
+    lastName: json['lastName'] != null ? json['lastName'] : null,
+    userName: json['userName'] != null ? json['userName'] : null,
+    birthday: json['birthday'] != null ? json['birthday'] : null,
+    avatarId: json['avatarId'] != null ? json['avatarId'] : null,
+    avatar:
+        json['avatar'] != null ? FileResponse.fromJson(json['avatar']) : null,
+    gender: json['gender'] != null ? json['gender'] : null,
+    totalSmypes: json['totalSmypes'] != null ? json['totalSmypes'] : null,
+    totalSpotlist: json['totalSpotlist'] != null ? json['totalSpotlist'] : null,
+    isSocialAccount:
+        json['isSocialAccount'] != null ? json['isSocialAccount'] : null,
+  );
 
   Map<String, dynamic> toJson() => {
     'id': id,
@@ -595,6 +610,7 @@ class CurrentUserResponse {
     'avatar': avatar?.toJson(),
     'gender': gender,
     'totalSmypes': totalSmypes,
+    'totalSpotlist': totalSpotlist,
     'isSocialAccount': isSocialAccount,
   };
 }
@@ -739,6 +755,88 @@ class TaggedUsersPaginationResponse {
             json['items'] != null
                 ? (json['items'] as List)
                     .map((js) => OmittedUserResponse.fromJson(js))
+                    .toList()
+                : null,
+      );
+
+  Map<String, dynamic> toJson() => {
+    'total': total,
+    'lastPage': lastPage,
+    'perPage': perPage,
+    'currentPage': currentPage,
+    'items': items?.map((item) => item.toJson()).toList(),
+  };
+}
+
+class SpotlistResponse {
+  String? id;
+  num? createdAt;
+  String? firstName;
+  String? lastName;
+  String? userName;
+  String? avatarId;
+  FileResponse? avatar;
+
+  SpotlistResponse({
+    this.id,
+    this.createdAt,
+    this.firstName,
+    this.lastName,
+    this.userName,
+    this.avatarId,
+    this.avatar,
+  });
+
+  factory SpotlistResponse.fromJson(Map<String, dynamic> json) =>
+      SpotlistResponse(
+        id: json['id'] != null ? json['id'] : null,
+        createdAt: json['createdAt'] != null ? json['createdAt'] : null,
+        firstName: json['firstName'] != null ? json['firstName'] : null,
+        lastName: json['lastName'] != null ? json['lastName'] : null,
+        userName: json['userName'] != null ? json['userName'] : null,
+        avatarId: json['avatarId'] != null ? json['avatarId'] : null,
+        avatar:
+            json['avatar'] != null
+                ? FileResponse.fromJson(json['avatar'])
+                : null,
+      );
+
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'createdAt': createdAt,
+    'firstName': firstName,
+    'lastName': lastName,
+    'userName': userName,
+    'avatarId': avatarId,
+    'avatar': avatar?.toJson(),
+  };
+}
+
+class SpotlistPaginationResponse {
+  num? total;
+  num? lastPage;
+  num? perPage;
+  num? currentPage;
+  List<SpotlistResponse>? items;
+
+  SpotlistPaginationResponse({
+    this.total,
+    this.lastPage,
+    this.perPage,
+    this.currentPage,
+    this.items,
+  });
+
+  factory SpotlistPaginationResponse.fromJson(Map<String, dynamic> json) =>
+      SpotlistPaginationResponse(
+        total: json['total'] != null ? json['total'] : null,
+        lastPage: json['lastPage'] != null ? json['lastPage'] : null,
+        perPage: json['perPage'] != null ? json['perPage'] : null,
+        currentPage: json['currentPage'] != null ? json['currentPage'] : null,
+        items:
+            json['items'] != null
+                ? (json['items'] as List)
+                    .map((js) => SpotlistResponse.fromJson(js))
                     .toList()
                 : null,
       );
